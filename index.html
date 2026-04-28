@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tuition Manager — Smart SaaS for Coaching Institutes</title>
+    <meta
+      name="description"
+      content="Multi-institute tuition management SaaS with attendance, marks, fees, homework, and notes."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <!-- =================== AUTH SCREEN =================== -->
+    <div id="auth-screen" class="auth-screen">
+      <div class="auth-bg">
+        <div class="auth-bg-blob blob-1"></div>
+        <div class="auth-bg-blob blob-2"></div>
+        <div class="auth-bg-blob blob-3"></div>
+      </div>
+
+      <div class="auth-container">
+        <div class="auth-hero">
+          <div class="auth-logo">
+            <div class="logo-mark">TM</div>
+            <span>Tuition Manager</span>
+          </div>
+          <h1 class="auth-headline">
+            Run your institute<br />
+            like a modern <span class="grad-text">SaaS company.</span>
+          </h1>
+          <p class="auth-sub">
+            One clean dashboard for attendance, marks, fees, homework and
+            anecdotal notes — for every teacher and every student in your
+            institute.
+          </p>
+          <ul class="auth-features">
+            <li>
+              <span class="feat-dot"></span> Multi-institute, fully isolated data
+            </li>
+            <li>
+              <span class="feat-dot"></span> Teacher + student dashboards
+            </li>
+            <li>
+              <span class="feat-dot"></span> Live sync with Google Sheets
+            </li>
+          </ul>
+        </div>
+
+        <div class="auth-card">
+          <div class="auth-tabs">
+            <button class="auth-tab active" data-tab="login">Sign in</button>
+            <button class="auth-tab" data-tab="register">Create account</button>
+          </div>
+
+          <!-- LOGIN FORM -->
+          <form id="login-form" class="auth-form">
+            <div class="field">
+              <label>Username</label>
+              <input
+                type="text"
+                id="login-username"
+                placeholder="e.g. priya.sharma"
+                required
+                autocomplete="username"
+              />
+            </div>
+            <div class="field">
+              <label>Password</label>
+              <input
+                type="password"
+                id="login-password"
+                placeholder="Enter your password"
+                required
+                autocomplete="current-password"
+              />
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">
+              <span class="btn-label">Sign in to dashboard</span>
+              <span class="btn-spinner"></span>
+            </button>
+            <p class="auth-foot-msg" id="login-msg"></p>
+          </form>
+
+          <!-- REGISTER FORM (INSTITUTE OWNER ONLY) -->
+          <form id="register-form" class="auth-form hidden">
+            <div class="info-banner">
+              <strong>Register your institute</strong>
+              <span>Only the institute owner signs up here. After signing in, you can add teachers and promote any of them to co-owner. Students are added from the dashboard too.</span>
+            </div>
+            <div class="field">
+              <label>Institute name</label>
+              <input
+                type="text"
+                id="reg-institute"
+                placeholder="e.g. Bright Future Academy"
+                required
+              />
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label>Owner's full name</label>
+                <input type="text" id="reg-name" placeholder="Your full name" required />
+              </div>
+              <div class="field">
+                <label>Email</label>
+                <input type="email" id="reg-email" placeholder="owner@institute.com" required />
+              </div>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label>Username</label>
+                <input
+                  type="text"
+                  id="reg-username"
+                  placeholder="Choose a username"
+                  required
+                />
+              </div>
+              <div class="field">
+                <label>Password</label>
+                <input
+                  type="password"
+                  id="reg-password"
+                  placeholder="Create password"
+                  required
+                  minlength="4"
+                />
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">
+              <span class="btn-label">Create institute account</span>
+              <span class="btn-spinner"></span>
+            </button>
+            <p class="auth-foot-msg" id="register-msg"></p>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- =================== APP SHELL =================== -->
+    <div id="app-shell" class="app-shell hidden">
+      <!-- SIDEBAR -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-top">
+          <div class="brand">
+            <div class="logo-mark sm">TM</div>
+            <div class="brand-text">
+              <strong>Tuition Manager</strong>
+              <small id="sb-institute">Institute</small>
+            </div>
+          </div>
+
+          <!-- Profile card (top-left, as requested) -->
+          <div class="profile-card" id="profile-card">
+            <div class="avatar" id="profile-avatar">U</div>
+            <div class="profile-meta">
+              <div class="profile-name" id="profile-name">User</div>
+              <div class="profile-role">
+                <span class="role-pill" id="profile-role">role</span>
+                <span class="profile-inst" id="profile-inst-tag"></span>
+              </div>
+            </div>
+            <button
+              class="logout-btn"
+              id="logout-btn"
+              title="Sign out"
+              aria-label="Sign out"
+            >
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                <polyline points="16 17 21 12 16 7"/>
+                <line x1="21" y1="12" x2="9" y2="12"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <nav class="nav" id="nav-menu">
+          <!-- nav links injected by JS based on role -->
+        </nav>
+
+        <div class="sidebar-foot">
+          <div class="foot-card">
+            <div class="foot-title">Powered by Google Sheets</div>
+            <div class="foot-sub">
+              Your data lives in your sheet. Always in sync.
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- MAIN -->
+      <main class="main">
+        <header class="topbar">
+          <button class="icon-btn menu-toggle" id="menu-toggle" aria-label="Open menu">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="6" x2="21" y2="6"/>
+              <line x1="3" y1="12" x2="21" y2="12"/>
+              <line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+          </button>
+          <div class="topbar-title">
+            <h2 id="page-title">Dashboard</h2>
+            <p id="page-sub">Overview of what's happening in your institute.</p>
+          </div>
+          <div class="topbar-actions">
+            <div class="search-box">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+              <input id="global-search" type="search" placeholder="Search students…" />
+            </div>
+          </div>
+        </header>
+
+        <section class="page-area" id="page-area">
+          <!-- Pages injected by JS -->
+        </section>
+      </main>
+    </div>
+
+    <!-- =================== MODAL =================== -->
+    <div id="modal-root" class="modal-root hidden">
+      <div class="modal-backdrop" data-close></div>
+      <div class="modal-card">
+        <div class="modal-head">
+          <h3 id="modal-title">Modal</h3>
+          <button class="icon-btn" data-close aria-label="Close modal">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body" id="modal-body"></div>
+      </div>
+    </div>
+
+    <!-- =================== TOAST =================== -->
+    <div id="toast-root" class="toast-root"></div>
+
+    <!-- =================== LOADER =================== -->
+    <div id="loader-root" class="loader-root hidden">
+      <div class="loader-spinner"></div>
+    </div>
+
+    <script type="module" src="./script.js"></script>
+  </body>
+</html>
